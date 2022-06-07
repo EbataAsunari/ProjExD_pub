@@ -69,6 +69,9 @@ def main():
 
     tori = pg.sprite.Group()
     tori.add(Bird("fig/3.png", 2, (900, 400)))
+    
+    hoshi = pg.sprite.Group()
+    hoshi.add(Bird("fig/9.png",2,(900,400))) #無敵状態の差し替え画像　地神
 
     bombs = pg.sprite.Group()
     bombs.add(Bomb((255,0,0), 10, (+2, +2), screen))
@@ -77,8 +80,17 @@ def main():
         score = pg.time.get_ticks()
         screen.disp.blit(screen.image, (0,0))
 
-        tori.update(screen)
-        tori.draw(screen.disp)
+        if time < 0: #無敵状態でないとき　地神
+            tori.update(screen)
+            hoshi.update(screen)
+            tori.draw(screen.disp) #通常状態の画像を表示　地神
+        else:       #無敵状態のとき　地神
+            tori.update(screen)
+            hoshi.update(screen)
+            hoshi.draw(screen.disp) #無敵状態の画像を表示　地神
+
+        
+        
 
         # 船渡川拓真：追加機能の関数
         increase_bombs(bombs, screen)
