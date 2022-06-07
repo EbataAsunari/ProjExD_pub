@@ -13,10 +13,10 @@ class Screen: #画面を生成
 
 
 class Bird(pg.sprite.Sprite):
-    key_delta = {pg.K_UP   : [0, -1],
-                 pg.K_DOWN : [0, +1],
-                 pg.K_LEFT : [-1, 0],
-                 pg.K_RIGHT: [+1, 0],}
+    key_delta = {pg.K_UP   : [0, -2],
+                 pg.K_DOWN : [0, +2],
+                 pg.K_LEFT : [-2, 0],
+                 pg.K_RIGHT: [+2, 0],}      #1→2に変更　地神
 
     def __init__(self, fn, r, xy):
         super().__init__()
@@ -62,6 +62,7 @@ def main():
     zanki = 5
     muteki = 0
     time = 200
+    col = {0:(255,0,0),1:(255,255,0),2:(255,0,255),3:(0,255,0),4:(0,255,255)}   #色辞書追加　地神
 
     screen = Screen("fig/pg_bg.jpg", (1600, 900), "逃げろ！こうかとん")
     screen.disp.blit(screen.image, (0,0))                  
@@ -70,14 +71,24 @@ def main():
     tori.add(Bird("fig/3.png", 2, (900, 400)))
 
     bombs = pg.sprite.Group()
-    bombs.add(Bomb((255,0,0), 10, (+2, +2), screen))
+    for i in range(5):
+        bombs.add(Bomb((col[i]), 10/(i*0.1+0.3), (+1+i*1,+2+i*1), screen)) #（色, サイズ, 速度）を各々変更した爆弾を５つ生成　地神
+
+    hoshi = pg.sprite.Group()
+    hoshi.add(Bird("fig/9.png",2,(900,400))) #無敵状態の差し替え画像　地神
 
     while True:
         score = pg.time.get_ticks()
         screen.disp.blit(screen.image, (0,0))
 
-        tori.update(screen)
-        tori.draw(screen.disp)
+        if time < 0: #無敵状態でないとき
+            tori.update(screen)
+            hoshi.update(screen)
+            tori.draw(screen.disp) #通常状態の画像を表示
+        else:       #無敵状態のとき
+            tori.update(screen)
+            hoshi.update(screen)
+            hoshi.draw(screen.disp) #無敵状態の画像を表示　地神
 
         bombs.update(screen)
         bombs.draw(screen.disp)
