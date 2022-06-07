@@ -104,11 +104,11 @@ def main():
                     font = pg.font.Font(None,50) #フォント指定
                     text = font.render("GAME OVER", True,(0,0,255)) #"GAME OVER"と表示
                     screen.disp.blit(text,(750,450))
-                    text2 = font.render(f"SCORE:{score}", True,(0,0,255)) #スコアを表示
+                    text2 = font.render(f"SCORE:{score/100}", True,(0,0,255)) #スコアを表示
                     screen.disp.blit(text2,(750,500))
 
                     pg.display.update() 
-                    pg.time.delay(1000)#ゲームオーバーした後遅延をいれてリターン
+                    pg.time.delay(3000)#ゲームオーバーした後遅延をいれてリターン
                     return
                                                                       
                                                 
@@ -125,7 +125,7 @@ def main():
         screen.disp.blit(text,(0,0))
 
         font = pg.font.Font(None,50)
-        text = font.render(f"SCORE:{score}", True,(0,0,255)) #スコア
+        text = font.render(f"SCORE:{score//100}", True,(0,0,255)) #スコア
         screen.disp.blit(text,(0,50))
         
         time -= 1
