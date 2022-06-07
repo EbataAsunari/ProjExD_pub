@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import random
+import time # 船渡川拓真
 
 
 class Screen: #画面を生成
@@ -79,6 +80,9 @@ def main():
         tori.update(screen)
         tori.draw(screen.disp)
 
+        # 船渡川拓真：追加機能の関数
+        increase_bombs(bombs, screen)
+
         bombs.update(screen)
         bombs.draw(screen.disp)
 
@@ -126,10 +130,16 @@ def check_bound(sc_r, obj_r):
     if obj_r.top  < sc_r.top  or sc_r.bottom < obj_r.bottom: y = -1
     return x, y
 
-                            
-
+# 船渡川拓真：追加機能：5秒ごとに爆弾を1つ追加する
+def increase_bombs(bombs, screen):
+    global time_count
+    time_now = time.time()
+    if ((time_now-time_count) > 5):
+        bombs.add(Bomb((255,0,0), 10, (+2, +2), screen))
+        time_count = time_now
 
 if __name__ == "__main__":
+    time_count = time.time()    # 船渡川拓真：追加機能で使うための変数
     pg.init() 
     main()
     pg.quit()
