@@ -81,11 +81,11 @@ def main():
         score = pg.time.get_ticks()
         screen.disp.blit(screen.image, (0,0))
 
-        if time < 0: #無敵状態でないとき
+        if time < 0: #無敵状態でないとき　地神
             tori.update(screen)
             hoshi.update(screen)
-            tori.draw(screen.disp) #通常状態の画像を表示
-        else:       #無敵状態のとき
+            tori.draw(screen.disp) #通常状態の画像を表示　地神
+        else:       #無敵状態のとき　地神
             tori.update(screen)
             hoshi.update(screen)
             hoshi.draw(screen.disp) #無敵状態の画像を表示　地神
@@ -98,13 +98,14 @@ def main():
                 while True:
                     font = pg.font.Font(None,50) #フォント指定
                     text = font.render("GAME OVER", True,(0,0,255)) #"GAME OVER"と表示
-                    screen.disp.blit(text,(750,450))
+                    screen.disp.blit(text,(700,400)) #位置変更　地神
                     text2 = font.render(f"SCORE:{score}", True,(0,0,255)) #スコアを表示
-                    screen.disp.blit(text2,(750,500))
+                    screen.disp.blit(text2,(700,500)) #位置変更　地神
 
                     pg.display.update() 
-                    pg.time.delay(1000)#ゲームオーバーした後遅延をいれてリターン
-                    return
+                    for event in pg.event.get(): #終了処理
+                        if event.type == pg.QUIT: #ｘボタンで終了　地神
+                            return
                                                                       
                                                 
             else:
