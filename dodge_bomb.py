@@ -89,19 +89,17 @@ def main():
             hoshi.update(screen)
             hoshi.draw(screen.disp) #無敵状態の画像を表示　地神
 
-        
-        
-
         # 船渡川拓真：追加機能の関数
         increase_bombs(bombs, screen)
 
         bombs.update(screen)
         bombs.draw(screen.disp)
 
+        font = pg.font.Font(None,50) #フォント指定
+
         if len(pg.sprite.groupcollide(tori,bombs,False, False)):
             if zanki == 0 and muteki == 0:#残機も無敵時間もない場合に爆弾に接触したならゲームオーバー
                 while True:
-                    font = pg.font.Font(None,50) #フォント指定
                     text = font.render("GAME OVER", True,(0,0,255)) #"GAME OVER"と表示
                     screen.disp.blit(text,(750,450))
                     text2 = font.render(f"SCORE:{score/100}", True,(0,0,255)) #スコアを表示
@@ -119,12 +117,10 @@ def main():
                     time = 80
         for event in pg.event.get():
             if event.type == pg.QUIT: return
-      
-        font = pg.font.Font(None,50)
+
         text = font.render(f"STOCK:{zanki}", True,(0,0,255)) #残機
         screen.disp.blit(text,(0,0))
 
-        font = pg.font.Font(None,50)
         text = font.render(f"SCORE:{score//100}", True,(0,0,255)) #スコア
         screen.disp.blit(text,(0,50))
         
