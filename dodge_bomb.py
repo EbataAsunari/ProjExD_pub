@@ -141,20 +141,12 @@ def check_bound(sc_r, obj_r):
 
 # 船渡川拓真：追加機能：5秒ごとに爆弾を1つ追加する
 def increase_bombs(bombs, screen):
-    global time_count
+global time_count
+    color = ((255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0))
     time_now = time.time()
     if ((time_now-time_count) > 5):
         #福光　ランダムに色と大きさが決定されるように
-        for i in range(0, 6):
-            r = random.randint(0, 3)
-            if r == 0:
-                r = (255, 0, 0)
-            elif r == 1:
-                r = (0, 255, 0)
-            elif r == 2:
-                r = (0, 0, 255)
-            elif r == 3:
-                r = (255, 255, 0)
+        r = color[random.randint(0, 3)]
         bombs.add( Bomb(r, random.randint(10, 50), (+2, +2), screen) )
         time_count = time_now
 
