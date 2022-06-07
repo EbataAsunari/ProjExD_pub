@@ -70,9 +70,6 @@ def main():
     tori = pg.sprite.Group()
     tori.add(Bird("fig/3.png", 2, (900, 400)))
 
-    # 船渡川拓真：追加機能の関数
-    increase_bombs(bombs, screen)
-
     bombs = pg.sprite.Group()
     bombs.add(Bomb((255,0,0), 10, (+2, +2), screen))
 
@@ -82,6 +79,9 @@ def main():
 
         tori.update(screen)
         tori.draw(screen.disp)
+
+        # 船渡川拓真：追加機能の関数
+        increase_bombs(bombs, screen)
 
         bombs.update(screen)
         bombs.draw(screen.disp)
