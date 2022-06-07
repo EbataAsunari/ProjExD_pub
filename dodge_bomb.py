@@ -30,13 +30,13 @@ class Bird(pg.sprite.Sprite):
     def update(self, screen):
         key_states = pg.key.get_pressed()
         for key, delta in Bird.key_delta.items():
+            ##福光　こうかとんが遅すぎるので高速化
             if key_states[key] == True:
-                self.rect.centerx += delta[0]
-                self.rect.centery += delta[1]
-                
-                if check_bound(screen.rect, self.rect) != (1,1): 
-                    self.rect.centerx -= delta[0]
-                    self.rect.centery -= delta[1]
+                self.rect.centerx += 5 *delta[0]
+                self.rect.centery += 5 *delta[1]
+                if check_bound(screen.rect, self.rect) != (1, 1):
+                    self.rect.centerx -= 5 *delta[0]
+                    self.rect.centery -= 5 *delta[1]
 
 
 class Bomb(pg.sprite.Sprite):
@@ -121,7 +121,8 @@ def main():
             muteki = 0 
         
         pg.display.update()  
-        clock.tick(1000)
+        ##福光　fpsの制限が高すぎて重いので1000から120に変更
+        clock.tick(120)
         
 
 def check_bound(sc_r, obj_r): 
@@ -135,7 +136,18 @@ def increase_bombs(bombs, screen):
     global time_count
     time_now = time.time()
     if ((time_now-time_count) > 5):
-        bombs.add(Bomb((255,0,0), 10, (+2, +2), screen))
+        #福光　ランダムに色と大きさが決定されるように
+        for i in range(0, 6):
+            r = random.randint(0, 3)
+            if r == 0:
+                r = (255, 0, 0)
+            elif r == 1:
+                r = (0, 255, 0)
+            elif r == 2:
+                r = (0, 0, 255)
+            elif r == 3:
+                r = (255, 255, 0)
+        bombs.add( Bomb(r, random.randint(10, 50), (+2, +2), screen) )
         time_count = time_now
 
 if __name__ == "__main__":
