@@ -62,7 +62,7 @@ def main():
 
     zanki = 5
     muteki = 0
-    time = 200
+    time = 80
 
     screen = Screen("fig/pg_bg.jpg", (1600, 900), "逃げろ！こうかとん")
     screen.disp.blit(screen.image, (0,0))                  
@@ -116,7 +116,7 @@ def main():
                 if muteki ==0:
                     zanki -= 1 
                     muteki = 1
-                    time = 200
+                    time = 80
         for event in pg.event.get():
             if event.type == pg.QUIT: return
       
